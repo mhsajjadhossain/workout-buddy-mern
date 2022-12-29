@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: "Poppins", sans-serif;
+    background: #f1f1f1;
+  }
+}
+
+@layer utilities {
+  .container {
+    @apply w-[1170px] mx-auto;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+  .col-1 {
+    @apply w-1/12 px-[15px];
+  }
+  .col-2 {
+    @apply w-2/12 px-[15px];
+  }
+  .col-3 {
+    @apply w-3/12 px-[15px];
+  }
+  .col-4 {
+    @apply w-4/12 px-[15px];
+  }
+  .col-5 {
+    @apply w-5/12 px-[15px];
+  }
+  .col-6 {
+    @apply w-6/12 px-[15px];
+  }
+  .col-7 {
+    @apply w-7/12 px-[15px];
+  }
+  .col-8 {
+    @apply w-8/12 px-[15px];
+  }
+  .col-9 {
+    @apply w-9/12 px-[15px];
+  }
+  .col-10 {
+    @apply w-10/12 px-[15px];
+  }
+  .col-11 {
+    @apply w-11/12 px-[15px];
+  }
+  .col-12 {
+    @apply w-full px-[15px];
+  }
+  .offset-1 {
+    @apply ml-[8.333%];
+  }
+  .offset-2 {
+    @apply ml-[6.6666667%];
+  }
+  .offset-3 {
+    @apply ml-[25%];
+  }
+  .offset-4 {
+    @apply ml-[33.333333%];
+  }
+  .offset-5 {
+    @apply ml-[41.666667%];
+  }
+}

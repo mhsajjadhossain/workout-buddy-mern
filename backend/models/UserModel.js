@@ -27,7 +27,7 @@ const userSchema = new Schema(
 );
 
 // static signup method
-userSchema.statics.signup = async (username, email, password) => {
+userSchema.statics.signup = async function (username, email, password) {
   // validations
   if (!username || !email || !password) {
     throw Error("You must fill all the fields");
@@ -51,7 +51,7 @@ userSchema.statics.signup = async (username, email, password) => {
     throw Error("Password is not strong enough");
   }
 
-  const exists = await User.findOne({ email });
+  const exists = await this.findOne({ email });
   if (exists) {
     throw Error("Email already in use");
   }
@@ -59,7 +59,29 @@ userSchema.statics.signup = async (username, email, password) => {
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
 
-  const user = await User.create({ username, email, password: hash });
+  const user = await this.create({ username, email, password: hash });
+  return user;
+};
+
+// static login method
+userSchema.statics.login = async function (email, password) {
+  // validations
+  if (!email || !password) {
+    throw Error("You must fill all the fields");
+  }
+
+  const user = await this.findOne({ email });
+
+  if (!user) {
+    throw Error("Given email is incorrect");
+  }
+
+  const match = await bcrypt.compare(password, user.password);
+
+  if (!match) {
+    throw Error("Given password is incorrect");
+  }
+
   return user;
 };
 

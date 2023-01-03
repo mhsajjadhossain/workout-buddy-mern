@@ -25,12 +25,20 @@ const Header = () => {
                 <ul className="flex items-center justify-end">
                   <li>
                     <Link to="/" className="text-gray-800 py-5 px-4 block">
-                      Workouts
+                      Home
                     </Link>
                   </li>
                   <li>
-                    <Link to="/" className="text-gray-800 py-5 px-4 block">
-                      Create Workouts
+                    <Link to="/login" className="text-gray-800 py-5 px-4 block">
+                      Login
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/signup"
+                      className="text-gray-800 py-5 px-4 block"
+                    >
+                      Sign up
                     </Link>
                   </li>
                 </ul>

@@ -8,5 +8,6 @@
 
 const env = {
   port: process.env.PORT,
+  secret: process.env.SECRET,
 };
 module.exports = env;

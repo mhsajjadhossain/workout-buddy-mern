@@ -13,8 +13,11 @@ const {
   deleteSingleWorkout,
   updateWorkout,
 } = require("../controller/workoutController");
+const requireAuth = require("../middleware/requireAuth");
 const Workout = require("../models/Workout");
 const router = express.Router();
+
+router.use(requireAuth);
 
 /**
  * @method GET

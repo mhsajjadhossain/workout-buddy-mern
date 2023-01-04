@@ -5,13 +5,15 @@
  * Data: Sun,2022-12-25
  * Time: 01:41:50.000-05:00
  */
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
+import useAuthContext from "./hooks/useAuthContext";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 
 function App() {
+  const { user } = useAuthContext();
   return (
     <>
       <div className="App">
@@ -19,9 +21,18 @@ function App() {
           <Layout>
             <div className="pages">
               <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/login" element={<Login />} />
+                <Route
+                  path="/"
+                  element={user ? <Home /> : <Navigate to={"/login"} />}
+                />
+                <Route
+                  path="/signup"
+                  element={!user ? <Signup /> : <Navigate to={"/"} />}
+                />
+                <Route
+                  path="/login"
+                  element={!user ? <Login /> : <Navigate to={"/"} />}
+                />
               </Routes>
             </div>
           </Layout>

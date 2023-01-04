@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import config from "../../../../config";
+import useAuthContext from "../../../../hooks/useAuthContext";
 import useWorkoutContext from "../../../../hooks/useWorkoutContext";
 
 const WorkoutForm = () => {
@@ -8,7 +9,7 @@ const WorkoutForm = () => {
   const [load, setLoad] = useState("");
   const [reps, setReps] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
-
+  const { user } = useAuthContext();
   /**
    * @method handleFormSubmit()
    * @des submit form data to the api
@@ -17,6 +18,8 @@ const WorkoutForm = () => {
   const handleFormSubmit = async (e) => {
     try {
       e.preventDefault();
+      if (!user)
+        return setErrorMessage("You are not authorized to make this request");
       const workoutObj = await { title, load, reps };
 
       const res = await fetch(`${config.baseUrl}/api/workouts`, {
@@ -25,6 +28,7 @@ const WorkoutForm = () => {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
+          Authorization: `Bearer ${user.token}`,
         },
       });
       const data = await res.json();

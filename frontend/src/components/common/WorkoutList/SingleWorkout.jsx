@@ -8,20 +8,24 @@
 import { formatDistance } from "date-fns";
 import React from "react";
 import config from "../../../config";
+import useAuthContext from "../../../hooks/useAuthContext";
 import useWorkoutContext from "../../../hooks/useWorkoutContext";
 
 const SingleWorkout = ({ workout }) => {
+  const { user } = useAuthContext();
   const { dispatch } = useWorkoutContext();
   /**
    * @method handleDelete()
    * @des handle delete a single workout
    */
   const handleDelete = async () => {
+    if (!user) return;
     const res = await fetch(`${config.baseUrl}/api/workouts/${workout?._id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Bearer ${user.token}`,
       },
     });
 

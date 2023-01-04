@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useLogin from "../../../hooks/useLogin";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState(null);
+  const { login, isLoading, error } = useLogin();
 
   /**
    * @method handleFormSubmit()
    * @arg e
    */
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
+    await login(email, password);
   };
   return (
     <>
@@ -56,14 +58,17 @@ const LoginForm = () => {
             now.
           </p>
 
-          <button className="w-full py-2 bg-cyan-400 text-white font-semibold text-xl cursor-pointer rounded">
+          <button
+            disabled={isLoading}
+            className="w-full py-2 bg-cyan-400 text-white font-semibold text-xl cursor-pointer rounded"
+          >
             Log In
           </button>
 
           {/* error message */}
-          {errorMessage && (
+          {error && (
             <p className="text-red-700 p-2 rounded mt-2 text-sm bg-red-100">
-              {errorMessage}
+              {error}
             </p>
           )}
           {/* error message */}
